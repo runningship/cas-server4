@@ -1,0 +1,263 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.bc</groupId>
+	<version>1.0</version>
+	<packaging>war</packaging>
+	<name>cas-server4</name>
+	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- spring版本号 -->
+		<spring.version>3.2.6.RELEASE</spring.version>
+		<log4j.version>1.2.17</log4j.version>
+	</properties>
+	
+	<dependencies>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1-b01</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.5</version>
+		</dependency>
+		
+		<!-- spring3 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-core</artifactId>
+		    <version>${spring.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-config</artifactId>
+		    <version>${spring.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-web</artifactId>
+		    <version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-expression</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.jasig.cas</groupId>
+		    <artifactId>cas-server-core</artifactId>
+		    <version>4.0.0</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.jasig.cas</groupId>
+		    <artifactId>cas-server-core-api-ticket</artifactId>
+		    <version>4.2.2</version>
+		    <exclusions>
+		    	<exclusion>
+		    		<artifactId>commons-lang3</artifactId>
+		    		<groupId>org.apache.commons</groupId>
+		    	</exclusion>
+		    </exclusions>
+		</dependency>
+		<dependency>
+		    <groupId>org.jasig.cas</groupId>
+		    <artifactId>cas-server-core-api-util</artifactId>
+		    <version>4.2.2</version>
+		    <exclusions>
+		    	<exclusion>
+		    		<artifactId>commons-lang3</artifactId>
+		    		<groupId>org.apache.commons</groupId>
+		    	</exclusion>
+		    </exclusions>
+		</dependency>
+		<dependency>
+		    <groupId>org.jasig.cas</groupId>
+		    <artifactId>cas-server-support-generic</artifactId>
+		    <version>4.2.2</version>
+		    <exclusions>
+		    	<exclusion>
+		    		<artifactId>shiro-core</artifactId>
+		    		<groupId>org.apache.shiro</groupId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<artifactId>quartz</artifactId>
+		    		<groupId>org.quartz-scheduler</groupId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<artifactId>commons-lang3</artifactId>
+		    		<groupId>org.apache.commons</groupId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<artifactId>inspektr-common</artifactId>
+		    		<groupId>org.jasig.inspektr</groupId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<artifactId>inspektr-audit</artifactId>
+		    		<groupId>org.jasig.inspektr</groupId>
+		    	</exclusion>
+		    </exclusions>
+		</dependency>
+		<dependency>
+		    <groupId>org.jasig.cas</groupId>
+		    <artifactId>cas-server-webapp-support</artifactId>
+		    <version>4.0.0</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>taglibs</groupId>
+		    <artifactId>standard</artifactId>
+		    <version>1.1.2</version>
+		</dependency>
+		
+<!-- 		<dependency> -->
+<!-- 		    <groupId>org.quartz-scheduler</groupId> -->
+<!-- 		    <artifactId>quartz</artifactId> -->
+<!-- 		    <version>1.7.2</version> -->
+<!-- 		</dependency> -->
+		
+		<dependency>
+		    <groupId>org.apereo.inspektr</groupId>
+		    <artifactId>inspektr-support-spring</artifactId>
+		    <version>1.5.GA</version>
+		    <exclusions>
+		    	<exclusion>
+		    		<artifactId>inspektr-audit</artifactId>
+		    		<groupId>org.apereo.inspektr</groupId>
+		    	</exclusion>
+		    </exclusions>
+		</dependency>
+
+		<dependency>
+		    <groupId>com.github.inspektr</groupId>
+		    <artifactId>inspektr-error</artifactId>
+		    <version>1.0.7.GA</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		
+		<!-- memcached 集成 -->
+		<dependency>
+		    <groupId>org.jasig.cas</groupId>
+		    <artifactId>cas-server-integration-memcached</artifactId>
+		    <version>4.2.2</version>
+		    <exclusions>
+		    	<exclusion>
+		    		<artifactId>quartz</artifactId>
+		    		<groupId>org.quartz-scheduler</groupId>
+		    	</exclusion>
+		    </exclusions>
+		</dependency>
+		
+		<dependency>
+		    <groupId>net.spy</groupId>
+		    <artifactId>spymemcached</artifactId>
+		    <version>2.12.0</version>
+		</dependency>
+
+		<dependency>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-core</artifactId>
+		    <version>2.0.53-beta</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>de.javakaffee.msm</groupId>
+		    <artifactId>msm-kryo-serializer</artifactId>
+		    <version>1.9.2</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>log4j</groupId>
+		    <artifactId>log4j</artifactId>
+		    <version>1.2.17</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.perf4j</groupId>
+		    <artifactId>perf4j</artifactId>
+		    <version>0.9.16</version>
+		</dependency>
+		<!-- memcached 集成 finish-->
+		
+	</dependencies>
+	<build>
+		<plugins>
+		 <plugin>
+	        <artifactId>maven-war-plugin</artifactId>
+	        <version>2.6</version>
+	        <configuration>
+	          <packagingExcludes>upload/**</packagingExcludes>
+	        </configuration>
+	      </plugin>
+		</plugins>
+	</build>
+	 
+	<repositories>
+		<repository>
+			<id>central</id>
+			<name>Maven Repository Switchboard</name>
+			<url>http://repo1.maven.org/maven2</url>
+		</repository>
+		<repository>
+			<id>com.springsource.repository.bundles.release</id>
+			<name>Spring Maven Repository Repository</name>
+			<url>http://repository.springsource.com/maven/bundles/release</url>
+		</repository>
+		<repository>
+			<id>jboss</id>
+			<url>https://repository.jboss.org/nexus/content/groups/public/</url>
+		</repository>
+		<repository>
+			<id>sonatype</id>
+			<name>Sonatype Repository</name>
+			<url>http://repository.sonatype.org/content/groups/public/</url>
+		</repository>
+	</repositories>
+	<artifactId>cas-server4</artifactId>
+</project>
