@@ -34,5 +34,18 @@
             </c:forEach>
 		  </cas:proxies>
         </c:if>
+        ${fn:length(assertion.primaryAuthentication.principal.attributes)}
+        <c:if test="${fn:length(assertion.primaryAuthentication.principal.attributes) > 0}">
+            <cas:attributes>
+                <c:forEach var="attr"
+                           items="${assertion.primaryAuthentication.principal.attributes}"
+                           varStatus="loopStatus" begin="0"
+                           end="${fn:length(assertion.primaryAuthentication.principal.attributes)}"
+                           step="1">
+                           key=${attr.key}
+                           value=${attr.value}
+                </c:forEach>
+            </cas:attributes>
+        </c:if>
 	</cas:authenticationSuccess>
 </cas:serviceResponse>

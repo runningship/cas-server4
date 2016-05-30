@@ -1,9 +1,14 @@
 package org.jasig.cas.authentication;
 
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.security.auth.login.FailedLoginException;
 
+import org.jasig.cas.Message;
 import org.jasig.cas.authentication.HandlerResult;
 import org.jasig.cas.authentication.PreventedException;
 import org.jasig.cas.authentication.UsernamePasswordCredential;
@@ -28,7 +33,11 @@ public class SSOUsersAuthenticationHandler extends AbstractUsernamePasswordAuthe
 //			return createHandlerResult(credential, this.principalFactory.createPrincipal(username), null);
 			
 			//4.0.0做法
-			return createHandlerResult(credential, new SimplePrincipal(username), null);
+			Map<String,Object> attrs = new HashMap<String,Object>();
+			attrs.put("uid", 123465);
+			attrs.put("lasttime", System.nanoTime());
+			SimplePrincipal principal = new SimplePrincipal(username , attrs);
+			return createHandlerResult(credential, principal, null);
 		}
 		throw new FailedLoginException("用户名或密码不正确");
 		//TODO authenticate from database code here
