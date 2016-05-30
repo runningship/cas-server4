@@ -35,17 +35,12 @@
 		  </cas:proxies>
         </c:if>
         ${fn:length(assertion.primaryAuthentication.principal.attributes)}
-        <c:if test="${fn:length(assertion.primaryAuthentication.principal.attributes) > 0}">
-            <cas:attributes>
-                <c:forEach var="attr"
-                           items="${assertion.primaryAuthentication.principal.attributes}"
-                           varStatus="loopStatus" begin="0"
-                           end="${fn:length(assertion.primaryAuthentication.principal.attributes)}"
-                           step="1">
-                           key=${attr.key}
-                           value=${attr.value}
-                </c:forEach>
-            </cas:attributes>
-        </c:if>
+		<c:if test="${fn:length(assertion.chainedAuthentications[fn:length(assertion.chainedAuthentications)-1].principal.attributes) > 0}">  
+		    <cas:attributes>  
+		        <c:forEach var="attr" items="${assertion.chainedAuthentications[fn:length(assertion.chainedAuthentications)-1].principal.attributes}">  
+		            <cas:${fn:escapeXml(attr.key)}>${fn:escapeXml(attr.value)}</cas:${fn:escapeXml(attr.key)}>  
+		        </c:forEach>  
+		    </cas:attributes>  
+		</c:if>  
 	</cas:authenticationSuccess>
 </cas:serviceResponse>

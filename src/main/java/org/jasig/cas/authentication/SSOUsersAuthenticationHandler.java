@@ -13,8 +13,11 @@ import org.jasig.cas.authentication.HandlerResult;
 import org.jasig.cas.authentication.PreventedException;
 import org.jasig.cas.authentication.UsernamePasswordCredential;
 import org.jasig.cas.authentication.handler.support.AbstractUsernamePasswordAuthenticationHandler;
+import org.jasig.cas.authentication.principal.Principal;
 import org.jasig.cas.authentication.principal.SimplePrincipal;
 import org.springframework.stereotype.Component;
+
+import com.google.common.collect.Maps;
 
 @Component("ssoUsersAuthenticationHandler")
 public class SSOUsersAuthenticationHandler extends AbstractUsernamePasswordAuthenticationHandler{
@@ -33,14 +36,27 @@ public class SSOUsersAuthenticationHandler extends AbstractUsernamePasswordAuthe
 //			return createHandlerResult(credential, this.principalFactory.createPrincipal(username), null);
 			
 			//4.0.0做法
-			Map<String,Object> attrs = new HashMap<String,Object>();
-			attrs.put("uid", 123465);
-			attrs.put("lasttime", System.nanoTime());
-			SimplePrincipal principal = new SimplePrincipal(username , attrs);
-			return createHandlerResult(credential, principal, null);
+//			SimplePrincipal principal = new SimplePrincipal(username);
+//			return createHandlerResult(credential, principal, null);
+			
+			Map<String, Object> attributes = Maps.newHashMap();  
+		    attributes.put("uid", "123456");  
+		    attributes.put("lasttime", System.nanoTime());  
+		  
+		    Principal principal = new SimplePrincipal(credential.getId(), attributes);  
+		    return new HandlerResult(this, new BasicCredentialMetaData(credential), principal); 
 		}
 		throw new FailedLoginException("用户名或密码不正确");
 		//TODO authenticate from database code here
 	}
 
+	@Override
+	public boolean supports(Credential credential) {
+		return super.supports(credential);
+	}
+
+	@Override
+	public String getName() {
+		return super.getName();
+	}
 }
