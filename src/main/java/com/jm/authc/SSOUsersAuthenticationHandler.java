@@ -1,27 +1,29 @@
-package org.jasig.cas.authentication;
+package com.jm.authc;
 
 import java.security.GeneralSecurityException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.security.auth.login.FailedLoginException;
 
-import org.jasig.cas.Message;
+import org.jasig.cas.authentication.BasicCredentialMetaData;
+import org.jasig.cas.authentication.Credential;
 import org.jasig.cas.authentication.HandlerResult;
 import org.jasig.cas.authentication.PreventedException;
 import org.jasig.cas.authentication.UsernamePasswordCredential;
 import org.jasig.cas.authentication.handler.support.AbstractUsernamePasswordAuthenticationHandler;
 import org.jasig.cas.authentication.principal.Principal;
 import org.jasig.cas.authentication.principal.SimplePrincipal;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.google.common.collect.Maps;
+import com.jm.mybatis.dao.DaoSupport;
 
-@Component("ssoUsersAuthenticationHandler")
 public class SSOUsersAuthenticationHandler extends AbstractUsernamePasswordAuthenticationHandler{
 
+	private DaoSupport baseDao;
+	
 	@Override
 	protected HandlerResult authenticateUsernamePasswordInternal(
 			UsernamePasswordCredential credential)
@@ -32,12 +34,9 @@ public class SSOUsersAuthenticationHandler extends AbstractUsernamePasswordAuthe
 		logger.info("You are login as "+ username+"/"+pwd);
 		if("xzye".equals(username) && "xzye".equals(pwd)){
 			
-			//4.2.2做法
-//			return createHandlerResult(credential, this.principalFactory.createPrincipal(username), null);
-			
 			//4.0.0做法
 //			SimplePrincipal principal = new SimplePrincipal(username);
-//			return createHandlerResult(credential, principal, null);
+//			return createHandlerResult(credential, principal, null); 
 			
 			Map<String, Object> attributes = Maps.newHashMap();  
 		    attributes.put("uid", "123456");  
@@ -59,4 +58,9 @@ public class SSOUsersAuthenticationHandler extends AbstractUsernamePasswordAuthe
 	public String getName() {
 		return super.getName();
 	}
+
+	public void setBaseDao(DaoSupport baseDao) {
+		this.baseDao = baseDao;
+	}
+	
 }

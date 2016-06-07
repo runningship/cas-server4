@@ -51,6 +51,7 @@
        | interface supports plugging in another implementation, the default PolicyBasedAuthenticationManager should
        | be sufficient in most cases.
        +-->
+       
     <bean id="authenticationManager" class="org.jasig.cas.authentication.PolicyBasedAuthenticationManager">
         <constructor-arg>
             <map>
@@ -89,7 +90,10 @@
         </property>
     </bean>
 
-    <bean id="ssoUsersAuthenticationHandler" class="org.jasig.cas.authentication.SSOUsersAuthenticationHandler"></bean>
+    <bean id="ssoUsersAuthenticationHandler" class="com.jm.authc.SSOUsersAuthenticationHandler">
+		<!-- 在mybatis.xml文件中 -->
+    	<property name="baseDao" ref="baseDao" />
+    </bean>
     
     <!-- Required for proxy ticket mechanism. -->
     <bean id="proxyAuthenticationHandler"
