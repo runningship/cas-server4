@@ -15,6 +15,7 @@
 		SITENAME,	
 		NICKNAME,	
 		TEL,	
+		PASSWORD,
 		COMPANYID,	
 		REGTIME,	
 		ADDTIME,	
@@ -37,6 +38,7 @@
 		#{SITENAME},	
 		#{NICKNAME},	
 		#{TEL},	
+		#{PASSWORD},
 		#{COMPANYID},	
 		#{REGTIME},	
 		#{ADDTIME},	
@@ -81,6 +83,7 @@
 			SITENAME = #{SITENAME},
 			NICKNAME = #{NICKNAME},
 			TEL = #{TEL},
+			PASSWORD = #{PASSWORD},
 			COMPANYID = #{COMPANYID},
 			JIFEN = #{JIFEN},
 			STATUS = #{STATUS},
@@ -110,6 +113,16 @@
 		<include refid="tableName"></include>
 	</select>
 	
+	<!-- 判断用户名和密码 -->
+	<select id="getUserInfo" parameterType="entity" resultType="entity">
+		select <include refid="Field"></include> from
+		<include refid="tableName"></include>
+		where 1=1
+		<if test="NAME!=null and PASSWORD!=null">
+		and NAME = #{NAME} and PASSWORD=#{PASSWORD}
+		</if>
+	</select>
+		
 	<!-- 批量删除 -->
 	<delete id="deleteAll" parameterType="String">
 		delete from
