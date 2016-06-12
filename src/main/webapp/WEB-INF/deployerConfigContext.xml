@@ -64,7 +64,7 @@
                 <entry key-ref="proxyAuthenticationHandler" value-ref="proxyPrincipalResolver" />
                 <!-- <entry key-ref="primaryAuthenticationHandler" value-ref="primaryPrincipalResolver" /> -->
 <!--                 <entry key-ref="ssoUsersAuthenticationHandler" value-ref="primaryPrincipalResolver" /> -->
-                <entry key-ref="ssoUsersAuthenticationHandler" ><null/></entry>
+                <entry key-ref="platformUserAuthenticationHandler" ><null/></entry>
             </map>
         </constructor-arg>
 
@@ -90,7 +90,7 @@
         </property>
     </bean>
 
-    <bean id="ssoUsersAuthenticationHandler" class="com.jm.authc.SSOUsersAuthenticationHandler">
+    <bean id="platformUserAuthenticationHandler" class="com.jm.authc.PlatformUserAuthenticationHandler">
 		<!-- 在mybatis.xml文件中 -->
     	<property name="baseDao" ref="baseDao" />
     </bean>

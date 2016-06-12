@@ -32,5 +32,6 @@
 		can be moved between tiers without modification.
 	</description>
     
-    <context:property-placeholder location="/WEB-INF/cas.properties"/> 
+<!--     <context:property-placeholder location="/WEB-INF/cas.properties"/>  -->
+    <context:property-placeholder location="file:E:\\conf\\cas-server\\cas.properties"/> 
 </beans>

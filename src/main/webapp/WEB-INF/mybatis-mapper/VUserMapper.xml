@@ -24,8 +24,6 @@
 		STATUS,	
 		REFEREEID,	
 		DEALERID,	
-		BONUS,	
-		AVILIABLEBONUS,	
 		USERTYPE,	
 		VUSER_ID
 	</sql>
@@ -47,8 +45,6 @@
 		#{STATUS},	
 		#{REFEREEID},	
 		#{DEALERID},	
-		#{BONUS},	
-		#{AVILIABLEBONUS},	
 		#{USERTYPE},	
 		#{VUSER_ID}
 	</sql>

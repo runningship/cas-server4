@@ -20,7 +20,7 @@ import com.jm.casserver.util.SecurityHelper;
 import com.jm.mybatis.Entity;
 import com.jm.mybatis.dao.DaoSupport;
 
-public class SSOUsersAuthenticationHandler extends AbstractUsernamePasswordAuthenticationHandler{
+public class PlatformUserAuthenticationHandler extends AbstractUsernamePasswordAuthenticationHandler{
 
 	private DaoSupport baseDao;
 	
@@ -30,19 +30,20 @@ public class SSOUsersAuthenticationHandler extends AbstractUsernamePasswordAuthe
 			throws GeneralSecurityException, PreventedException {
 		String username = credential.getUsername();
 		String pwd = credential.getPassword();
-		System.out.println("You are login as "+ username+"/"+pwd);
 		logger.info("You are login as "+ username+"/"+pwd);
 		Entity entity = new Entity();
-		entity.put("NAME", username);
+//		entity.put("NAME", username);
+		entity.put("MOBILE_NO", username);
 		entity.put("PASSWORD", SecurityHelper.Md5(pwd));
 		try {
-			Entity user = (Entity) baseDao.findForObject("VUserMapper.getUserInfo", entity);
+			Entity user = (Entity) baseDao.findForObject("PlatUserMapper.getUserInfo", entity);
 			if(user==null){
 				throw new FailedLoginException("用户名或密码不正确");
 			}
 			Map<String, Object> attributes = Maps.newHashMap();  
-		    attributes.put("uid", user.get("VUSER_ID"));  
-		    attributes.put("lasttime", user.get("LASTTIME"));  
+		    attributes.put("ID", user.get("ID"));  
+		    attributes.put("USER_NO", user.get("USER_NO"));  
+		    attributes.put("REAL_NAME", user.get("REAL_NAME"));  
 		  
 		    Principal principal = new SimplePrincipal(credential.getId(), attributes);  
 		    return new HandlerResult(this, new BasicCredentialMetaData(credential), principal); 

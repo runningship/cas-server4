@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PlatUserMapper">
+	
+	<!--表名 -->
+	<sql id="tableName">
+		USER_ACCOUNT
+	</sql>
+	
+	<!-- 字段 -->
+	<sql id="Field">
+		ID,	
+		MOBILE_NO,	
+		PASSWORD,
+		REAL_NAME,
+		USER_NO
+	</sql>
+	
+	<!-- 字段值 -->
+	<sql id="FieldValue">
+		#{ID},	
+		#{MOBILE_NO},	
+		#{PASSWORD},
+		#{REAL_NAME},
+		#{USER_NO}
+	</sql>
+	
+	<!-- 判断用户名和密码 -->
+	<select id="getUserInfo" parameterType="entity" resultType="entity">
+		select <include refid="Field"></include> from
+		<include refid="tableName"></include>
+		where 1=1
+		<if test="MOBILE_NO!=null and PASSWORD!=null">
+		and MOBILE_NO = #{MOBILE_NO} and PASSWORD=#{PASSWORD}
+		</if>
+	</select>
+		
+</mapper>
