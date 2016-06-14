@@ -26,7 +26,10 @@
 </head>
 <body>
 <div class="login-box">
-    <form action="http://jmv3.jmdev.com/login.do?action=chkLogin" id="Member-login" method="post">
+    <form action="/cas/login" id="Member-login" method="post">
+  			<input type="hidden" name="lt" value="${loginTicket}" />
+	      	<input type="hidden" name="execution" value="${flowExecutionKey}" />
+	      	<input type="hidden" name="_eventId" value="submit" />
         <input type="hidden" name="pagefrom" id="pagefrom" value="">
         <input type="hidden" name="pathId" id="pathId" value="">
         <span class="title">会员登录</span>
@@ -42,7 +45,7 @@
         </div>
         <div class="border-blue" style="margin-bottom: 34px;">
             <p class="key">
-                <i></i><input type="password" altercss="#ddd" id="psw" name="passWord" datatype="*6-20" nullmsg="密码不能为空" errormsg="6~20位数字、字母组合" placeholder="请输入您的密码" class="Validform_error">
+                <i></i><input type="password" altercss="#ddd" id="psw" name="password" datatype="*6-20" nullmsg="密码不能为空" errormsg="6~20位数字、字母组合" placeholder="请输入您的密码" class="Validform_error">
                 <span class="tipMsg J-tipMsg Validform_checktip Validform_wrong">密码不能为空</span>
                 <em class="del"></em>
             </p>
@@ -59,7 +62,7 @@
             </label> <a href="http://jmv3.jmdev.com/pwd.do?action=findPwd" target="_blank">忘记密码？</a>
         </p>
         <p class="btns">
-            <input class="login-btn" type="submit" id="loginBtn" value="登 录">
+            <input class="login-btn"  name="submit" type="submit" id="loginBtn" value="登 录">
             <a class="register-btn" href="http://jmv3.jmdev.com/UserAccount.do?action=registerInit" target="_blank">注 册</a>
         </p>
     </form>
@@ -196,7 +199,7 @@
   		  var val = $(this).val();
   		  if(val && val != null && val != "" && val != '请输入11位手机号码'){
   			  $.ajax({
-  				  url:"../../login.do?action=checkLoginNeedVerifyCode",
+  				  url:"/cas/c/userLogin?action=checkLoginNeedVerifyCode",
   				  type : 'post',
   				  data : {username : val},
   				  dataType : "json",

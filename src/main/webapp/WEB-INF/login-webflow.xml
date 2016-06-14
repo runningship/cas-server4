@@ -29,6 +29,26 @@
         <evaluate expression="initialFlowSetupAction" />
     </on-start>
 
+	<action-state id="provideLoginTicket">  
+	      <evaluate expression="provideLoginTicketAction"/>  
+	      <transition on="loginTicketRequested" to="viewRedirectToRequestor" />  
+	      <transition on="continue" to="ticketGrantingTicketExistsCheck" />  
+	  </action-state>  
+	  
+	 <view-state id="viewRedirectToRequestor" view="casRedirectToRequestorView" model="credentials">  
+	      <binder>  
+	          <binding property="username" />  
+	          <binding property="password" />  
+	      </binder>  
+	      <on-entry>  
+	          <set name="viewScope.commandName" value="'credentials'" />  
+	      </on-entry>  
+	      <transition on="submit" bind="true" validate="true" to="realSubmit">  
+	          <set name="flowScope.credentials" value="credentials" />  
+	          <evaluate expression="authenticationViaFormAction.doBind(flowRequestContext, flowScope.credentials)" />  
+	      </transition>  
+	  </view-state>
+  
 	<action-state id="ticketGrantingTicketCheck">
         <evaluate expression="ticketGrantingTicketCheckAction.checkValidity(flowRequestContext)"/>
         <transition on="notExists" to="gatewayRequestCheck"/>
@@ -100,7 +120,8 @@
     <transition on="success" to="sendTicketGrantingTicket" />
     <transition on="successWithWarnings" to="showMessages" />
     <transition on="authenticationFailure" to="handleAuthenticationFailure" />
-    <transition on="error" to="generateLoginTicket" />
+<!--     <transition on="error" to="generateLoginTicket" /> -->
+    <transition on="error" to="loginResponse" />  
   </action-state>
 
   <view-state id="showMessages" view="casLoginMessageView">
@@ -134,10 +155,21 @@
 	
 	<action-state id="generateServiceTicket">
         <evaluate expression="generateServiceTicketAction" />
-		<transition on="success" to ="warn" />
-    <transition on="authenticationFailure" to="handleAuthenticationFailure" />
-    <transition on="error" to="generateLoginTicket" />
+<!-- 		<transition on="success" to ="warn" /> -->
+		<transition on="success" to="loginResponse" />
+	    <transition on="authenticationFailure" to="handleAuthenticationFailure" />
+<!-- 	    <transition on="error" to="generateLoginTicket" /> -->
+	    <transition on="error" to="loginResponse" />
 		<transition on="gateway" to="gatewayServicesManagementCheck" />
+	</action-state>
+
+	<action-state id="loginResponse">  
+	    <evaluate expression="ajaxLoginServiceTicketAction" />  
+	    <!--非ajax/iframe方式<strong>登录</strong>，采取原流程处理 -->  
+	    <transition on="success" to="warn" />  
+	    <transition on="error" to="viewLoginForm" />  
+	    <!-- 反之，则进入 viewAjaxLoginView <strong><strong>页面</strong></strong> -->  
+	    <transition on="local" to="viewAjaxLoginView" />  
 	</action-state>
 
     <action-state id="gatewayServicesManagementCheck">
@@ -197,6 +229,8 @@
 	<end-state id="viewServiceErrorView" view="viewServiceErrorView" />
     
     <end-state id="viewServiceSsoErrorView" view="viewServiceSsoErrorView" />
+    
+    <end-state id="viewAjaxLoginView" view="viewAjaxLoginView" /> 
 
   <global-transitions>
     <!--

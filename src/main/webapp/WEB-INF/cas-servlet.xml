@@ -89,6 +89,7 @@
         <prop key="/authorizationFailure.html">passThroughController</prop>
         <prop key="/status">healthCheckController</prop>
         <prop key="/statistics">statisticsController</prop>
+        <prop key="/c/*">jmLoginController</prop>
       </util:properties>
     </property>
     <!--
@@ -179,6 +180,14 @@
       </util:list>
     </property>
   </bean>
+  
+  <!-- customer controller -->
+  <bean id="jmLoginController" class="com.jm.authc.LoginController"></bean>
+  
+  <bean id="provideLoginTicketAction" class="com.jm.authc.ProvideLoginTicketAction"   
+        p:ticketIdGenerator-ref="loginTicketUniqueIdGenerator"/>
+  
+  <bean id="ajaxLoginServiceTicketAction" class="com.jm.authc.AjaxLoginServiceTicketAction"/>
   
   <!--  CAS 2 Protocol service/proxy validation -->     
   <bean id="abstractValidateController" class="org.jasig.cas.web.ServiceValidateController" abstract="true"
