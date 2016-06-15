@@ -83,7 +83,10 @@
       org.jasig.cas.web.init.SafeContextLoaderListener
     </listener-class>
   </listener>
-
+  
+  	<listener>
+		<listener-class>com.jm.casserver.listener.WebAppContextListener</listener-class>
+	</listener>
   <!--
     - This is the Spring dispatcher servlet which delegates all requests to the
     - Spring WebMVC controllers as configured in cas-servlet.xml.

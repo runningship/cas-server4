@@ -199,7 +199,7 @@
   		  var val = $(this).val();
   		  if(val && val != null && val != "" && val != '请输入11位手机号码'){
   			  $.ajax({
-  				  url:"/cas/c/userLogin?action=checkLoginNeedVerifyCode",
+  				  url:"/cas/c/loginController?action=checkLoginNeedVerifyCode",
   				  type : 'post',
   				  data : {username : val},
   				  dataType : "json",

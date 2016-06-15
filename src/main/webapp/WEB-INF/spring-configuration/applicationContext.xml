@@ -36,7 +36,7 @@
         know what you're doing!
     </description>
 
-<!-- 	<context:component-scan base-package="com.jm" /> -->
+<!-- 	<context:component-scan base-package="com.jm.casserver.web.controller" /> -->
 	
     <!--
       Including this aspectj-autoproxy element will cause spring to automatically
